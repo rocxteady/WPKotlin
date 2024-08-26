@@ -1,6 +1,8 @@
 package com.ulassancak.wpkotlin.models
 
 import com.ulassancak.wpkotlin.extensions.decodedHtml
+import com.ulassancak.wpkotlin.extensions.javaVersion
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -23,12 +25,12 @@ data class RenderedContent(
 @Serializable
 data class Post(
     val id: Int,
-    @SerialName("date_gmt") val date: String? = null,
-    @SerialName("modified_gmt") val modified: String? = null,
+    @SerialName("date_gmt") private val _date: LocalDateTime? = null,
+    @SerialName("modified_gmt") private val _modified: LocalDateTime? = null,
     val status: String? = null,
-    @SerialName("title") val title: RenderedContent,
-    @SerialName("content") val content: RenderedContent? = null,
-    @SerialName("excerpt") val excerpt: RenderedContent? = null,
+    val title: RenderedContent,
+    val content: RenderedContent,
+    val excerpt: RenderedContent? = null,
     val author: Int? = null,
     @SerialName("featured_media") val featuredMedia: Int? = null,
     @SerialName("comment_status") val commentStatus: CommentStatus = CommentStatus.CLOSED,
@@ -36,8 +38,7 @@ data class Post(
     val tags: List<Int> = emptyList(),
     val link: String,
     @SerialName("_embedded") val embeddedContent: EmbeddedContent? = null,
-    @SerialName("content_html") val contentHTML: String? = null
-) {
-    val htmlDecodedTitle: String
-        get() = title.rendered.decodedHtml
-}
+    val htmlDecodedTitle: String = title.rendered.decodedHtml,
+    @kotlinx.serialization.Transient val date: java.time.LocalDateTime? = _date?.javaVersion,
+    @kotlinx.serialization.Transient val modified: java.time.LocalDateTime? = _modified?.javaVersion,
+)

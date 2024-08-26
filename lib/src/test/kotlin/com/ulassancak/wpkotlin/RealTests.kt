@@ -1,4 +1,5 @@
 import com.ulassancak.wpkotlin.WPKotlin
+import com.ulassancak.wpkotlin.extensions.formatted
 import com.ulassancak.wpkotlin.repositories.*
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
@@ -17,7 +18,7 @@ private class LibraryTest {
         WPKotlin.initialize("https://time.com/wp-json", "wp/v2");
         runBlocking {
             val response = GetPostRepository().getPost(7012318);
-            println(response);
+            println(response.date?.formatted);
         }
     }
 
