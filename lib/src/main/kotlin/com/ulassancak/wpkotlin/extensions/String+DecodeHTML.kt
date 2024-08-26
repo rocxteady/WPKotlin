@@ -1,6 +1,6 @@
 package com.ulassancak.wpkotlin.extensions
 
-val String.decodedHtml: String
+internal val String.decodedHtml: String
     get() {
         val htmlEntities = mapOf(
             "&quot;" to "\"",

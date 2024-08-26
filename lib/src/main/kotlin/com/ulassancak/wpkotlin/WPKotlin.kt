@@ -5,16 +5,16 @@ package com.ulassancak.wpkotlin
 
 import com.ulassancak.wpkotlin.models.WPError.*
 
-sealed class WPConfigurationError : Exception() {
-    data object WasNotSetup : WPConfigurationError() {
+internal sealed class WPConfigurationError : Exception() {
+    internal data object WasNotSetup : WPConfigurationError() {
         private fun readResolve(): Any = WasNotSetup
     }
 
-    data object Route : WPConfigurationError() {
+    internal data object Route : WPConfigurationError() {
         private fun readResolve(): Any = Route
     }
 
-    data object Namespace : WPConfigurationError() {
+    internal data object Namespace : WPConfigurationError() {
         private fun readResolve(): Any = Namespace
     }
 
@@ -27,16 +27,14 @@ sealed class WPConfigurationError : Exception() {
     }
 }
 
-data class WPConfiguration(
+internal data class WPConfiguration(
     val route: String,
     val namespace: String
 )
 
 object WPKotlin {
-    private var _configuration: WPConfiguration? = null
-
     @get:Throws(WPConfigurationError::class)
-    val configuration: WPConfiguration
+    internal val configuration: WPConfiguration
         get() {
             val config = _configuration ?: throw WPConfigurationError.WasNotSetup
             if (config.route.isEmpty()) throw WPConfigurationError.Route
@@ -44,9 +42,7 @@ object WPKotlin {
             return config
         }
 
-    fun resetConfiguration() {
-        _configuration = null
-    }
+    private var _configuration: WPConfiguration? = null
 
     fun initialize(route: String, namespace: String) {
         _configuration = WPConfiguration(route, namespace)

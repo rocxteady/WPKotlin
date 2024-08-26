@@ -5,9 +5,9 @@ enum class OrderType(val value: String) {
     DESCENDING("desc")
 }
 
-class PostsParamCreator {
-    companion object {
-        fun createParamsForPost(
+internal class PostsParamCreator {
+    internal companion object {
+        internal fun createParamsForPost(
             categories: List<Int> = emptyList(),
             categoriesToExclude: List<Int> = emptyList(),
             tags: List<Int> = emptyList(),
@@ -39,7 +39,7 @@ class PostsParamCreator {
             return params
         }
 
-        fun createParamsForPosts(
+        internal fun createParamsForPosts(
             page: Int = 1,
             perPage: Int = 10,
             order: OrderType = OrderType.DESCENDING,
@@ -76,7 +76,7 @@ class PostsParamCreator {
             return params
         }
 
-        fun createParamsForSearchPosts(
+        internal fun createParamsForSearchPosts(
             term: String,
             page: Int = 1,
             perPage: Int = 10
@@ -90,7 +90,7 @@ class PostsParamCreator {
             )
         }
 
-        fun createParamsForCategories(
+        internal fun createParamsForCategories(
             page: Int = 1,
             perPage: Int = 100,
             order: OrderType = OrderType.DESCENDING
@@ -105,7 +105,7 @@ class PostsParamCreator {
             )
         }
 
-        fun createParamsForCategory(): Map<String, Any> {
+        internal fun createParamsForCategory(): Map<String, Any> {
             return mapOf(
                 "_fields" to "id,count,description,link,name,parent"
             )

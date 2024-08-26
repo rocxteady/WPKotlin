@@ -13,8 +13,8 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.client.plugins.logging.*
 import kotlinx.serialization.json.Json
 
-class RestClient {
-    suspend inline fun <reified T>fetch(configuration: RequestConfiguration): T {
+internal class RestClient {
+    internal suspend inline fun <reified T>fetch(configuration: RequestConfiguration): T {
         val client = HttpClient(CIO) {
             install(ContentNegotiation) {
                 json(Json {

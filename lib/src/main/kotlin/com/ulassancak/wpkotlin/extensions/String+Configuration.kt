@@ -2,31 +2,30 @@ package com.ulassancak.wpkotlin.extensions
 
 import com.ulassancak.wpkotlin.WPKotlin
 import com.ulassancak.wpkotlin.api.WPClientConfiguration
-import java.net.URL
 
-fun String.Companion.initialize(endpointType: WPClientConfiguration.EndpointType): String {
+internal fun String.Companion.initialize(endpointType: WPClientConfiguration.EndpointType): String {
     return when (endpointType) {
         is WPClientConfiguration.EndpointType.Base -> {
-            var url = URL(endpointType.baseURL)
-            url = url.appendPath(endpointType.endpoint)
-            url.toString()
+            endpointType.baseURL.appendPath(endpointType.endpoint)
         }
         is WPClientConfiguration.EndpointType.Endpoint -> {
             val configuration = WPKotlin.configuration
-            var url = URL(configuration.route)
-            url = url.appendPath(configuration.namespace)
-            url = url.appendPath(endpointType.endpoint)
-            url.toString()
+            val url = configuration.route.appendPath(configuration.namespace)
+            url.appendPath(endpointType.endpoint)
         }
     }
 }
 
-private fun URL.appendPath(path: String): URL {
-    val urlPath = this.path
-    val newPath = if (urlPath.endsWith("/")) {
-        "$urlPath$path"
+internal fun String.Companion.initializeRoute(): String {
+    val configuration = WPKotlin.configuration
+    return configuration.route
+}
+
+private fun String.appendPath(path: String): String {
+    //if this ends with / remove it, if path begins with / remove it
+    if (this.endsWith("/")) {
+        return this + path.removePrefix("/")
     } else {
-        "$urlPath/$path"
+        return this + "/" + path.removePrefix("/")
     }
-    return URL(this.protocol, this.host, this.port, newPath)
 }
