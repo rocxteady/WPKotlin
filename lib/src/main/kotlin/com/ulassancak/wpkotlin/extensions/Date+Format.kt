@@ -18,16 +18,6 @@ internal val LocalDateTime.javaVersion: java.time.LocalDateTime
         nanosecond
     )
 
-val java.time.LocalDateTime.formatted: String
-    get() {
-        val zonedDateTime = ZonedDateTime.of(this, ZoneId.of("UTC"))
-
-        // Use DateTimeFormatter with the system's default locale
-        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(Locale.getDefault())
-
-        return zonedDateTime.format(formatter)
-    }
-
 val LocalDateTime.formatted: String
     get() {
         val javaLocalDateTime = javaVersion

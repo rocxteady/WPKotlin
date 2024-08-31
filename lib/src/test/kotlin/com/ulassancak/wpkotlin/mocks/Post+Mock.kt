@@ -1,8 +1,8 @@
 package com.ulassancak.wpkotlin.mocks
 import com.ulassancak.wpkotlin.models.*
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.time.LocalDateTime
 
 val Post.mockData: Post
     get() {

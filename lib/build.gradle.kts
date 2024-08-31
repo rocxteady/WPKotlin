@@ -13,8 +13,8 @@ plugins {
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
-
-    kotlin("plugin.serialization") version "1.8.0"
+    //Multiple kotlin plugins
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
 repositories {

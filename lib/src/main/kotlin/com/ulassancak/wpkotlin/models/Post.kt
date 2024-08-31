@@ -1,7 +1,6 @@
 package com.ulassancak.wpkotlin.models
 
 import com.ulassancak.wpkotlin.extensions.decodedHtml
-import com.ulassancak.wpkotlin.extensions.javaVersion
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -25,8 +24,8 @@ data class RenderedContent(
 @Serializable
 data class Post(
     val id: Int,
-    @SerialName("date_gmt") private val _date: LocalDateTime? = null,
-    @SerialName("modified_gmt") private val _modified: LocalDateTime? = null,
+    @SerialName("date_gmt") val date: LocalDateTime? = null,
+    @SerialName("modified_gmt") val modified: LocalDateTime? = null,
     val status: String? = null,
     val title: RenderedContent,
     val content: RenderedContent,
@@ -39,6 +38,4 @@ data class Post(
     val link: String,
     @SerialName("_embedded") val embeddedContent: EmbeddedContent? = null,
     val htmlDecodedTitle: String = title.rendered.decodedHtml,
-    @kotlinx.serialization.Transient val date: java.time.LocalDateTime? = _date?.javaVersion,
-    @kotlinx.serialization.Transient val modified: java.time.LocalDateTime? = _modified?.javaVersion,
 )
