@@ -72,9 +72,15 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
         debug {
             isMinifyEnabled = false
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
     }
     compileOptions {
@@ -93,7 +99,7 @@ publishing {
     publications {
         withType<MavenPublication> {
             groupId = "com.ulassancak"
-            version = "0.0.3"
+            version = "0.0.4"
 
             // Adjust the artifactId based on the publication name
             artifactId = when (name) {
