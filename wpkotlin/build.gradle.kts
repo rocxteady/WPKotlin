@@ -1,15 +1,17 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import org.jreleaser.model.Active
 
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinx.serialization)
-    id("convention.publication")
+    alias(libs.plugins.convention.publication)
+    alias(libs.plugins.jreleaser)
 }
 
-group = "com.ulassancak.wpkotlin"
-version = "0.1.0"
+group = "io.github.rocxteady"
+version = "0.0.1"
 
 kotlin {
     jvmToolchain(17)
@@ -45,7 +47,7 @@ kotlin {
         it.binaries.framework {
             baseName = xcframeworkName
             isStatic = false
-            binaryOption("bundleId", "com.ulassancak.wpkotlin")
+            binaryOption("bundleId", "io.github.rocxteady.wpkotlin")
             xcf.add(this)
         }
     }
@@ -57,7 +59,7 @@ kotlin {
         it.binaries.framework {
             baseName = xcframeworkName
             isStatic = false
-            binaryOption("bundleId", "com.ulassancak.wpkotlin")
+            binaryOption("bundleId", "io.github.rocxteady.wpkotlin")
             xcf.add(this)
         }
     }
@@ -126,10 +128,32 @@ kotlin {
 }
 
 android {
-    namespace = "com.ulassancak.wpkotlin"
+    namespace = "io.github.rocxteady.wpkotlin"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
+    }
+}
+
+jreleaser {
+    signing {
+        active.set(Active.ALWAYS)
+        armored.set(true)
+        passphrase.set("20375Moti.")
+        cosign {
+            setPublicKeyFile("/Users/ulas/.gnupg/secring.gpg")
+        }
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                create("sonatype") {
+                    active.set(Active.ALWAYS)
+                    url.set("https://central.sonatype.com/api/v1/publisher")
+                    stagingRepository("target/staging-deploy")
+                }
+            }
+        }
     }
 }
