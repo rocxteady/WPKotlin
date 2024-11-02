@@ -1,20 +1,23 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-import org.jreleaser.model.Active
 
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.convention.publication)
-    alias(libs.plugins.jreleaser)
+    alias(libs.plugins.vanniktech)
 }
 
 group = "io.github.rocxteady"
 version = "0.0.1"
+val artifact = "wpkotlin"
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
     androidTarget {
         publishLibraryVariants("release")
     }
@@ -24,7 +27,7 @@ kotlin {
     js {
         browser {
             webpackTask {
-                mainOutputFileName = "wpkotlin.js"
+                mainOutputFileName = "$artifact.js"
             }
         }
         binaries.executable()
@@ -47,7 +50,7 @@ kotlin {
         it.binaries.framework {
             baseName = xcframeworkName
             isStatic = false
-            binaryOption("bundleId", "io.github.rocxteady.wpkotlin")
+            binaryOption("bundleId", "${group as? String}.${artifact}")
             xcf.add(this)
         }
     }
@@ -59,21 +62,21 @@ kotlin {
         it.binaries.framework {
             baseName = xcframeworkName
             isStatic = false
-            binaryOption("bundleId", "io.github.rocxteady.wpkotlin")
+            binaryOption("bundleId", "${group as? String}.${artifact}")
             xcf.add(this)
         }
     }
 
     linuxX64 {
         binaries.staticLib {
-            baseName = "wpkotlin"
+            baseName = artifact
         }
     }
 
 
     mingwX64 {
         binaries.staticLib {
-            baseName = "wpkotlin"
+            baseName = artifact
         }
     }
 
@@ -128,7 +131,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.rocxteady.wpkotlin"
+    namespace =  "${group as? String}.${artifact}"
     compileSdk = 34
 
     defaultConfig {
@@ -136,24 +139,37 @@ android {
     }
 }
 
-jreleaser {
-    signing {
-        active.set(Active.ALWAYS)
-        armored.set(true)
-        passphrase.set("20375Moti.")
-        cosign {
-            setPublicKeyFile("/Users/ulas/.gnupg/secring.gpg")
-        }
-    }
-    deploy {
-        maven {
-            mavenCentral {
-                create("sonatype") {
-                    active.set(Active.ALWAYS)
-                    url.set("https://central.sonatype.com/api/v1/publisher")
-                    stagingRepository("target/staging-deploy")
-                }
+mavenPublishing {
+    coordinates(group as? String, artifact, version as? String)
+    pom {
+        name.set("WPKotlin")
+        description.set("WPKotlin is a Kotlin client for the WordPress REST API")
+        inceptionYear.set("2024")
+        url.set("https://github.com/rocxteady/WPKotlin/")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             }
         }
+        developers {
+            developer {
+                id.set("rocxteady")
+                name.set("Ulaş Sancak")
+                url.set("https://github.com/rocxteady/")
+            }
+        }
+        scm {
+            url.set("https://github.com/rocxteady/WPKotlin/")
+            connection.set("scm:git:git://github.comrocxteady/WPKotlin.git")
+            developerConnection.set("scm:git:ssh://git@github.com/rocxteady/WPKotlin.git")
+        }
     }
+    configure(KotlinMultiplatform(
+        sourcesJar = true,
+        javadocJar = JavadocJar.None()
+    ))
+    publishToMavenCentral(SonatypeHost.Companion.CENTRAL_PORTAL)
+    signAllPublications()
 }

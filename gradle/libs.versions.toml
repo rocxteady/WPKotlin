@@ -6,7 +6,7 @@ kotlinx-coroutines = "1.9.0"
 kotlinx-serialization = "1.7.3"
 kotlinx-datetime = "0.6.1"
 ktor = "3.0.0"
-jreleaser = "1.15.0"
+vanniktech = "0.30.0"
 
 [libraries]
 
@@ -33,4 +33,4 @@ multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotl
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 convention-publication = { id = "convention.publication" }
-jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }
+vanniktech = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech" }
