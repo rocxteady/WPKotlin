@@ -11,6 +11,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 internal interface CategoriesRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -19,6 +20,7 @@ internal interface CategoriesRepositoryInterface {
 
 internal interface GetCategoryRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -28,6 +30,7 @@ internal interface GetCategoryRepositoryInterface {
 @Suppress("unused")
 class CategoriesRepository: CategoriesRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -45,6 +48,7 @@ class CategoriesRepository: CategoriesRepositoryInterface {
 @Suppress("unused")
 class GetCategoryRepository: GetCategoryRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )

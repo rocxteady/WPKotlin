@@ -9,6 +9,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 internal interface APIInfoRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -18,6 +19,7 @@ internal interface APIInfoRepositoryInterface {
 @Suppress("unused")
 class APIInfoRepository: APIInfoRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )

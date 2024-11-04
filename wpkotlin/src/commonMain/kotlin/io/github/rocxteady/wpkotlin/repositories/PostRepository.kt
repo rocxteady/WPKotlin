@@ -12,6 +12,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 internal interface PostsRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -20,6 +21,7 @@ internal interface PostsRepositoryInterface {
 
 internal interface SearchPostsRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -28,11 +30,13 @@ internal interface SearchPostsRepositoryInterface {
 
 internal interface GetPostRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
     suspend fun getPost(baseURL: String, id: Int): Post
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -42,6 +46,7 @@ internal interface GetPostRepositoryInterface {
 @Suppress("unused")
 class PostsRepository: PostsRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -68,6 +73,7 @@ class PostsRepository: PostsRepositoryInterface {
 @Suppress("unused")
 class SearchPostsRepository: SearchPostsRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -85,6 +91,7 @@ class SearchPostsRepository: SearchPostsRepositoryInterface {
 @Suppress("unused")
 class GetPostRepository: GetPostRepositoryInterface {
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )
@@ -93,6 +100,7 @@ class GetPostRepository: GetPostRepositoryInterface {
         return client.fetch()
     }
     @Throws(
+        Exception::class,
         SerializationException::class,
         CancellationException::class,
     )

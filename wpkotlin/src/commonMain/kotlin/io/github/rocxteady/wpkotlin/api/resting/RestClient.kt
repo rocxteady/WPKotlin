@@ -67,7 +67,7 @@ internal class RestClient {
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw e
+            throw Exception(e.message)
         }
     }
 }
