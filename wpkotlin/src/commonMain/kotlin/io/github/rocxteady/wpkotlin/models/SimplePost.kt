@@ -10,6 +10,7 @@ data class SimplePost(
     val title: String,
     @SerialName("url") val link: String
 ) {
+    @Suppress("unused")
     val htmlDecodedTitle: String
         get() = title.decodedHtml
 }

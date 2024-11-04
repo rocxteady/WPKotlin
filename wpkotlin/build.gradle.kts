@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "io.github.rocxteady"
-version = "0.0.1"
+version = "0.0.2"
 val artifact = "wpkotlin"
 
 kotlin {

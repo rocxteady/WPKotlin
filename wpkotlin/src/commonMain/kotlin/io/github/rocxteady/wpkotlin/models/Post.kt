@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Suppress("unused")
 @Serializable
 enum class CommentStatus(val value: String) {
     @SerialName("open") OPEN("open"),

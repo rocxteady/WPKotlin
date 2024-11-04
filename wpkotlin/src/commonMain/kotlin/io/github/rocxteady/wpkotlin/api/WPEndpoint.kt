@@ -3,9 +3,9 @@ package io.github.rocxteady.wpkotlin.api
 sealed class WPEndpoint(val path: String) {
 
     // Posts Endpoints
-    object Posts : WPEndpoint("/posts")
-    object Search : WPEndpoint("/search")
-    object Categories : WPEndpoint("/categories")
+    data object Posts : WPEndpoint("/posts")
+    data object Search : WPEndpoint("/search")
+    data object Categories : WPEndpoint("/categories")
 
     // Regular class instead of data class for Post
     class Post(id: Int) : WPEndpoint("/posts/$id")

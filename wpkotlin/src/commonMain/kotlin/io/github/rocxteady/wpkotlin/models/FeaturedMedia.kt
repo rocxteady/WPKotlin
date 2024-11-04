@@ -26,6 +26,7 @@ data class FeaturedMedia(
     @SerialName("media_details") val mediaDetails: MediaDetails,
     @SerialName("source_url") val sourceURL: String
 ) {
+    @Suppress("unused")
     val thumbnailURL: String?
         get() = mediaDetails.sizes["thumbnail"]?.sourceURL
 }

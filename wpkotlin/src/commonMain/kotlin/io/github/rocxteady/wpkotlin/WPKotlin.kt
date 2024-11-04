@@ -38,6 +38,7 @@ object WPKotlin {
 
     private var _configuration: WPConfiguration? = null
 
+    @Suppress("unused")
     fun initialize(route: String, namespace: String) {
         _configuration = WPConfiguration(route, namespace)
     }

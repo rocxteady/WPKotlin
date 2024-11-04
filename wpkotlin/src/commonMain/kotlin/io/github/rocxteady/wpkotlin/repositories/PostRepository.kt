@@ -7,30 +7,49 @@ import io.github.rocxteady.wpkotlin.helpers.OrderType
 import io.github.rocxteady.wpkotlin.helpers.PostsParamCreator
 import io.github.rocxteady.wpkotlin.models.Post
 import io.github.rocxteady.wpkotlin.models.SimplePost
-import kotlin.experimental.ExperimentalObjCName
-import kotlin.native.ObjCName
+import kotlinx.serialization.SerializationException
+import kotlin.coroutines.cancellation.CancellationException
 
 internal interface PostsRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     suspend fun getPosts(page: Int = 1, perPage: Int = 10, order: OrderType = OrderType.DESCENDING, categories: List<Int>? = null, categoriesToExclude: List<Int>? = null, tags: List<Int>? = null, tagsToExclude: List<Int>? = null, include: List<Int>? = null): List<Post>
 }
 
 internal interface SearchPostsRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     suspend fun searchPosts(term: String, page: Int = 1, perPage: Int = 10): List<SimplePost>
 }
 
 internal interface GetPostRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     suspend fun getPost(baseURL: String, id: Int): Post
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     suspend fun getPost(id: Int): Post
 }
 
-@OptIn(ExperimentalObjCName::class)
-@ObjCName("PostsRepository")
+@Suppress("unused")
 class PostsRepository: PostsRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     override suspend fun getPosts(page: Int, perPage: Int, order: OrderType, categories: List<Int>?, categoriesToExclude: List<Int>?, tags: List<Int>?, tagsToExclude: List<Int>?, include: List<Int>?): List<Post> {
         val client = WPClient(
             WPClientConfiguration(
                 WPEndpoint.Posts.path,
-                PostsParamCreator.Companion.createParamsForPosts(
+                PostsParamCreator.createParamsForPosts(
                     page,
                     perPage,
                     order,
@@ -46,23 +65,37 @@ class PostsRepository: PostsRepositoryInterface {
     }
 }
 
+@Suppress("unused")
 class SearchPostsRepository: SearchPostsRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     override suspend fun searchPosts(term: String, page: Int, perPage: Int): List<SimplePost> {
         val client = WPClient(
             WPClientConfiguration(
                 WPEndpoint.Search.path,
-                PostsParamCreator.Companion.createParamsForSearchPosts(term, page, perPage)
+                PostsParamCreator.createParamsForSearchPosts(term, page, perPage)
             )
         )
         return client.fetch()
     }
 }
 
+@Suppress("unused")
 class GetPostRepository: GetPostRepositoryInterface {
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     override suspend fun getPost(baseURL: String, id: Int): Post {
         val client = WPClient(WPClientConfiguration(baseURL, WPEndpoint.Post(id).path))
         return client.fetch()
     }
+    @Throws(
+        SerializationException::class,
+        CancellationException::class,
+    )
     override suspend fun getPost(id: Int): Post {
         val client = WPClient(WPClientConfiguration(WPEndpoint.Post(id).path))
         return client.fetch()

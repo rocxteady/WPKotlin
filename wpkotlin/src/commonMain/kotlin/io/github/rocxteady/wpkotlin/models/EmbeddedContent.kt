@@ -3,6 +3,7 @@ package io.github.rocxteady.wpkotlin.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Suppress("unused")
 @Serializable
 data class EmbeddedContent(
     @SerialName("author") private val _author: List<Author>? = null,

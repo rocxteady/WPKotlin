@@ -1,10 +1,12 @@
 package io.github.rocxteady.wpkotlin.helpers
 
+@Suppress("unused")
 enum class OrderType(val value: String) {
     ASCENDING("asc"),
     DESCENDING("desc")
 }
 
+@Suppress("unused")
 internal class PostsParamCreator {
     internal companion object {
         internal fun createParamsForPost(
