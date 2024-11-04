@@ -12,7 +12,7 @@ let package = Package(
    targets: [
       .binaryTarget(
          name: "WPKotlin",
-         url: "https://github.com/rocxteady/WPKotlin/releases/download/0.0.1/WPKotlin.xcframework.zip",
-         checksum:"0ea47a8b2e484eb160d539191b683f24495a886fd8176c88bbefcffe80e8ca29")
+         url: "https://github.com/rocxteady/WPKotlin/releases/download/0.0.2/WPKotlin.xcframework.zip",
+         checksum:"9ec8bc72b7d7eeab573a2fd24c09663f581e9e4e4176e2e0003642a48de29ae5")
    ]
 )
