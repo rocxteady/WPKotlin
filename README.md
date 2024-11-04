@@ -33,6 +33,16 @@ dependencies {
 }
 ```
 
+### Swift Package Manager
+
+Add the following to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/rocxteady/WPKotlin.git", .upToNextMajor(from: "0.0.3"))
+]
+```
+
 ## Features
 
 - Built with Kotlin Multiplatform
