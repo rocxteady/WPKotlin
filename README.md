@@ -71,3 +71,7 @@ WPKotlin is available under the Apache License, Version 2.0. See the LICENSE fil
 ## Author
 
 Ulaş Sancak ([@rocxteady](https://github.com/rocxteady))
+
+## Related Projects
+
+- [WPSwift](https://github.com/rocxteady/WPSwift) - Swift client for WordPress REST API
